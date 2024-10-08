@@ -6,9 +6,7 @@ import Online from '@/assets/icons/online.svg';
 import Offline from '@/assets/icons/red-dot.png';
 import { MessageTabProps } from "../Types/types";
 import { Input } from "../ui/input";
-import Send from '@/assets/icons/send.svg'
-
-
+import Send from '@/assets/icons/send.svg';
 
 const MessageTab: React.FC<MessageTabProps> = ({
     avatarUrl,
@@ -18,7 +16,8 @@ const MessageTab: React.FC<MessageTabProps> = ({
     messages,
 }) => {
     return (
-        <main className="bg-gray-100 h-screen">
+        <main className="bg-gray-100 flex flex-col" style={{ height: 'calc(100vh - 15%)' }}>
+            {/* Header section */}
             <Card className="border-0 bg-white w-full rounded-none shadow-sm">
                 <CardHeader>
                     <section className="flex items-center justify-between">
@@ -41,7 +40,8 @@ const MessageTab: React.FC<MessageTabProps> = ({
                 </CardHeader>
             </Card>
 
-            <section className="p-4">
+            {/* Messages section */}
+            <section className="flex-1 p-4 bg-gray-100 overflow-y-auto">
                 {messages.map((msg, index) => (
                     <div
                         key={index}
@@ -53,16 +53,16 @@ const MessageTab: React.FC<MessageTabProps> = ({
                     </div>
                 ))}
             </section>
-            <section className="absolute bottom-0 w-[85%] bg-white h-[80px]">
-                <div className="flex">
-                    <Input  
-                        type="text"
-                        placeholder="Send your message"
-                        className="w-full pr-10 border-none shadow-none h-[52px] rounded px-4 mt-3 text-[20px]  text-black"
-                    />
-                    <div className="bg-black h-[60px] px-4 rounded m-4 cursor-pointer">
-                    <Image src={Send} alt="send Icon" width={40} height={40} className="mt-4"/>
-                    </div>
+
+            {/* Input section */}
+            <section className="bg-white w-full h-[80px] p-3 shadow-md flex items-center justify-between sticky bottom-0">
+                <Input
+                    type="text"
+                    placeholder="Send your message"
+                    className="w-full pr-10 border-none shadow-none h-[52px] rounded px-4 text-[20px] text-black"
+                />
+                <div className="bg-black h-[52px] w-[52px] flex justify-center items-center rounded cursor-pointer ml-3">
+                    <Image src={Send} alt="send Icon" width={24} height={24} />
                 </div>
             </section>
         </main>

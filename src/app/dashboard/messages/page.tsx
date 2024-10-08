@@ -1,13 +1,12 @@
-'use client'
-import { useEffect, useState } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { VscBell } from "react-icons/vsc";
-import { SearchInputField } from "@/components/atoms/searchbox";
-import { ChatCardProps } from "@/components/Types/types";
-import ChatCard from "@/components/card/chat";
-import { truncateString } from "@/lib/helpers/texttruncate";
-import MessageTab from "@/components/card/message-tab";
-
+'use client';
+import { useEffect, useState } from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { VscBell } from 'react-icons/vsc';
+import { SearchInputField } from '@/components/atoms/searchbox';
+import { ChatCardProps } from '@/components/Types/types';
+import ChatCard from '@/components/card/chat';
+import { truncateString } from '@/lib/helpers/texttruncate';
+import MessageTab from '@/components/card/message-tab';
 
 export default function Home() {
     const chatData: ChatCardProps[] = [
@@ -82,12 +81,14 @@ export default function Home() {
             isUnread: false,
         },
     ];
+
     const messages = [
-        { message: "Hello!", isSender: true },
-        { message: "Hi there!", isSender: false },
-        { message: "How are you?", isSender: true },
+        { message: 'Hello!', isSender: true },
+        { message: 'Hi there!', isSender: false },
+        { message: 'How are you?', isSender: true },
         { message: "I'm good, thanks!", isSender: false },
     ];
+
     const [isScrolled, setIsScrolled] = useState(false);
 
     const handleScroll = () => {
@@ -106,8 +107,15 @@ export default function Home() {
     }, []);
 
     return (
-        <main className="bg-gray-50 p-4 min-h-screen">
-            <section className={`flex justify-between shadow-sm fixed top-0 left-[15%] right-0 z-10 p-4 transition-all duration-300 ${isScrolled ? 'bg-white backdrop-blur-md bg-opacity-80' : 'bg-transparent'}`}>
+        <main className="bg-gray-50 h-screen px-4">
+            {/* Header section */}
+            <section
+                className={`flex justify-between shadow-sm fixed top-0 left-[15%] right-0 z-10 p-4 transition-all duration-300 ${
+                    isScrolled
+                        ? 'bg-white backdrop-blur-md bg-opacity-80'
+                        : 'bg-transparent'
+                }`}
+            >
                 <div>
                     <h3 className="font-semibold text-[24px]">Message</h3>
                 </div>
@@ -120,15 +128,16 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className=" pt-[55px]">
-                <div className="flex ">
-                    <div className="w-[30%]">
+            {/* Chat list and message section */}
+            <section className="pt-[80px] h-[calc(100vh-80px)]">
+                <div className="flex h-full">
+                    {/* Chat List Section */}
+                    <div className="w-[30%] mr-4">
                         <SearchInputField />
-                        <div className=" flex flex-col gap-3 mt-4 h-[calc(100vh-200px)] overflow-y-auto no-scrollbar">
+                        <div className="flex flex-col gap-3 mt-4 h-full overflow-y-auto  no-scrollbar">
                             {chatData.map((chat: ChatCardProps, index: number) => (
-                                <div key={index} className="">
+                                <div key={index}>
                                     <ChatCard
-                                        key={index}
                                         avatarUrl={chat.avatarUrl}
                                         name={chat.name}
                                         message={truncateString(chat.message, 25)}
@@ -139,10 +148,12 @@ export default function Home() {
                             ))}
                         </div>
                     </div>
-                    <div className="w-[70%] ">
+
+                    {/* Message Tab Section */}
+                    <div className="w-[70%] h-full">
                         <MessageTab
-                            avatarUrl="https://example.com/avatar.jpg" 
-                            avatarFallback="AB" 
+                            avatarUrl="https://example.com/avatar.jpg"
+                            avatarFallback="AB"
                             name="John Doe"
                             status="online"
                             messages={messages}
@@ -150,9 +161,6 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-
         </main>
-
     );
 }
-
